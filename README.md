@@ -6,7 +6,7 @@
 ## Code and Resources Used
 **R Version:** 4.1.2 (2021-11-01) <br/>
 **Packages:** tidyverse, ggplot2, data.table, cluster <br/>
-**Data:** https://www.kaggle.com/datasets/samuelmcguire/wine-reviews-data 
+**Data:** https://www.kaggle.com/datasets/samuelmcguire/wine-reviews-data (data too large to upload to GitHub)
 
 ## Data Cleaning
 
