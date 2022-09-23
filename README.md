@@ -1,6 +1,6 @@
 # Wine Recommendations
 
-* Created systems to make content-based and item-based recommendations based on user reviews 
+* Created systems to make content-based and item-based recommendations based on wine reviews data
 * Data used is from a public Kaggle data set
 
 ## Code and Resources Used
