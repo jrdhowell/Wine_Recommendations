@@ -1,6 +1,6 @@
 # Wine Recommendations
 
-* Created systems to make content-based and item-based recommendations based on user reviews that predicts whether a shipment will be accepted or rejected in an effort to help the small business reduce losses from rejected shipments.
+* Created systems to make content-based and item-based recommendations based on user reviews 
 * Data used is from a public Kaggle data set
 
 ## Code and Resources Used
