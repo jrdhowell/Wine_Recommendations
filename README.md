@@ -29,10 +29,10 @@
 * Created content-based recommendation system:
 * Selected variables, created dissimilarity matrix using Gower distance due to factor and numerical variables
 * Created function to return wine recommendations of a user based on the user's recommendations weighted by their ratings
-*
+<br> <br>
 * Created item-based collaborative recommendation system:
 * Pivoted the wine ratings, checked the sparsity (0.952), created function to make wine-based recommendations using cosine similarity
-*
+<br> <br>
 * Created user-based collaborative recommendation system:
 * Created function to make user-based recommendations based on cosine similarity
 * Results for user-based recommendations were unusable due to sparsity
