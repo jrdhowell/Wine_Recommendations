@@ -18,6 +18,8 @@
 
 * The shape of the rating variable data was visualized.
 
+![alt_text](https://github.com/jrdhowell/Wine_Recommendations/blob/main/visualizations/ratings_histogram.png)
+
 ## Data Imputing
 
 * Imputed missing data in alcohol and price variable. 
