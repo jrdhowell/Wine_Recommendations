@@ -66,7 +66,7 @@ head(df[nchar(df$price)>6,]$price)
 
 # change correct price values to double and incorrect to NULL
 df <- df %>% 
-  mutate(price = ifelse(nchar(price) > 6, NA, parse_number(price,  na = temp)))
+  mutate(price = ifelse(nchar(price) > 6, NA, parse_number(price)))
 
 
 
@@ -79,6 +79,7 @@ temp <- df[duplicated(df$wine),]$wine
 # must assume that when other variables do not match, the wines are different
 df[which(df$wine %in% temp), ] %>%  arrange(wine) %>% head()
 
+# number of duplicate wine names
 length(df[which(df$wine %in% temp), ]$wine)
 
 # take a look at duplicate wines when there are are more than one reviewer
@@ -133,7 +134,7 @@ length(df[which(df$wine %in% temp), ]$wine)
 #but leave one, unspecific observation for such wines as the observation for that wine
 
 # add count of reviewers for each wine and a count of each wine,
-# reletive to the wine in each observation
+# relative to the wine in each observation
 df <- df %>% 
   group_by( wine) %>%
   mutate(count_user = length(unique(reviewer)), count_wine = n()) %>% 
@@ -162,8 +163,8 @@ df <- df %>%
   ungroup()
 
 
-# make a df to list reviewers and their wine when there are more win observations than
-# unique reviwers for such wine
+# make a df to list reviewers and their wine when there are more wine observations than
+# unique reviewers for such wine
 target_wine_list <- df %>% 
   filter(count_wine > count_user) %>%
   arrange(varietal) %>% 
@@ -308,7 +309,7 @@ colnames(dissimilarity) <- df$wine[1:10000]
 
 
 # take a look at dissimilarity matrix
-dissimilarity[15:17,15:17]
+dissimilarity[15:16,15:15]
 
 
 
@@ -418,7 +419,7 @@ user_wine$reviewer = NULL
 user_wine = as.matrix(user_wine)
 
 # see results
-user_wine[1:5,1:3]
+user_wine[1:5,1:2]
 
 
 
@@ -465,62 +466,4 @@ recom_cf_item <- item_recommendation("Recanati 2013 Reserve Petite Sirah (Galile
 # recommended wines  using item-based collaborative
 head(recom_cf_item) 
 
-
-
-
-
-
-
-
-
-# USER-BASED COLLABORATIVE RECOMMENDING SYSTEM
-
-
-
-
-# the code below does not produce any results because of the sparsity of the..
-# same wine recommendations amond different users 
-
-#FUNCTION - START
-user_recommendation = function(reviewer_id, user_wine_matrix = user_wine,
-                               ratings_matrix = df,
-                               n_recommendations = 5,
-                               threshold = 1,
-                               nearest_neighbors = 10){
-  
-  reviewer_index <- which(rownames(user_wine_matrix) == reviewer_id)
-  
-  similarity <- apply(user_wine_matrix, 1, FUN = function(y) 
-    cos_similarity(user_wine_matrix[reviewer_index,], y))
-  
-  similar_users <- tibble(reviewer = names(similarity), 
-                          similarity = similarity) %>%
-    filter(reviewer != reviewer_id) %>% 
-    arrange(desc(similarity)) %>%
-    top_n(nearest_neighbors, similarity)
-  
-  
-  rated_wine_user <- ratings_matrix$wine[ratings_matrix$reviewer == reviewer_id]
-  
-  recommendations <- ratings_matrix %>%
-    filter(
-      reviewer %in% similar_users$reviewer &
-        !(wine %in% rated_wine_user)) %>%
-    group_by(wine) %>%
-    summarise(
-      count = n(),
-      rating = mean(rating)
-    ) %>%
-    filter(count > threshold) %>%
-    arrange(desc(rating), desc(count)) %>%
-    head(n_recommendations)
-  
-  return(recommendations)
-  
-}
-
-#FUNCTION-END
-
-recom_cf_user <- user_recommendation("Alexander Peartree", n_recommendations = 20)
-recom_cf_user
 
